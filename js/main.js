@@ -1500,6 +1500,7 @@ function Load(width,height){
           })
 
           scene.on('touchmove', function(e){
+              /*
               if(Black.intersect(Blue_back)){
                 if(Black.x == 455+Hava&& Black.y == 5){
                   if(e.x > 425+Hava && e.y<20){
@@ -1525,6 +1526,26 @@ function Load(width,height){
                 if (Black.y+50 == e.y) B_D(Black);
                 if (Black.x-50 == e.x) B_L(Black);
                 if (Black.x+50 == e.x) B_R(Black);
+              }*/
+              if(Hand.y>e.y+50){
+                B_U(Black);
+                Hand.x = e.x;
+                Hand.y = e.y;
+              }
+              else if(Hand.y<e.y-50){
+                B_D(Black);
+                Hand.x = e.x;
+                Hand.y = e.y;
+              }
+              else if(Hand.x>e.x+50){
+                B_L(Black);
+                Hand.x = e.x;
+                Hand.y = e.y;
+              }
+              else if(Hand.x<e.x-50){
+                B_R(Black);
+                Hand.x = e.x;
+                Hand.y = e.y;
               }
           });
 
