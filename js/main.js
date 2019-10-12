@@ -1,7 +1,7 @@
 enchant()
 function Load(width,height){
   var core = new Core(width, height);
-  enchant.Game._loadFuncs['js']  = function(src, callback) {
+  /*enchant.Game._loadFuncs['js']  = function(src, callback) {
     var ele = document.createElement("script");
         ele.type = "text/javascript";
         ele.src = src;
@@ -10,7 +10,7 @@ function Load(width,height){
           throw new Error('Cannot load an asset: ' + src);
         };
         document.body.appendChild(ele);
-      };
+      };*/
       core.preload("image/Black.png","image/Blue_back.png","image/side.png","image/door.png","image/key.png");
       core.preload("image/enemy.png","image/control.png","image/Objects.png","image/Start_button.png","image/Option_back.png");
       core.preload("image/end.png","image/Explosion.png","image/Menu.png","image/Start.png","image/Pause.png","image/Pause_back.png");
