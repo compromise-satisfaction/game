@@ -140,9 +140,7 @@ function Load(width,height){
          if(z % 2 == 0) this.y -= 100;
          this.color = 'black';
          this.font = '40px "Arial"';
-         this.on('enterframe', function(){
-           this.text = ("ステージ"+z);
-         });
+         this.text = ("ステージ"+z);
          }
        });
 
@@ -333,9 +331,7 @@ function Load(width,height){
             this.y = y;
             this.color = 'black';
             this.font = '20px "Arial"';
-            this.on('enterframe', function(){
-              this.text = (z);
-            });
+            this.text = (z);
             scene.addChild(this);
           }
         });
@@ -962,7 +958,7 @@ function Load(width,height){
         var Enemys = [];
         var Key_syokiiti = [800,155];
         var Dead_TIME = 0;
-        var Enemy_Speed = 2;
+        var Enemy_Speed = 3;
         var E_I = 0;
         var Enemy_moves = [[]];
         var Time_es = [];
@@ -1653,13 +1649,11 @@ function Load(width,height){
         S_Input._element.placeholder = "ステージテキストを入力";
 
         var label1 = new Label();
-                label1.x = 5;
-                label1.y = 5;
-                label1.color = 'red';
-                label1.font = '40px "Arial"';
-                label1.on('enterframe', function(){
-                         label1.text = ("ステージ保存");
-                         });
+          label1.x = 5;
+          label1.y = 5;
+          label1.color = 'red';
+          label1.font = '40px "Arial"';
+          label1.text = ("ステージ保存");
 
         scene.on("touchstart",function(e){
           Hand.x = e.x;
