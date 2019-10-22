@@ -37,15 +37,15 @@ function Load(width,height){
       scene.addChild(Start);
 
       var Numbers = Class.create(Sprite, {
-          initialize: function(x,y,z,o) {
-              Sprite.call(this,45,45);
-              this.image = core.assets["image/Number.png"];
-              this.x = x;
-              this.y = y;
-              this.frame = z;
-              if(o) this.opacity = 0.5;
-              scene.addChild(this);
-          }
+        initialize: function(x,y,z,o) {
+          Sprite.call(this,45,45);
+          this.image = core.assets["image/Number.png"];
+          this.x = x;
+          this.y = y;
+          this.frame = z;
+          if(o) this.opacity = 0.5;
+          scene.addChild(this);
+        }
       });
 
       var I = 0;
@@ -53,10 +53,10 @@ function Load(width,height){
       var Choice = 0;
 
       for (var i = 1; i < 82; i++){
-         Number[i] = new Numbers(5+K,5+I,0);
-         K = K+50;
-         if(i%3==0) K = K+5;
-         if(i%9==0){
+        Number[i] = new Numbers(5+K,5+I,0);
+        K = K+50;
+        if(i%3==0) K = K+5;
+        if(i%9==0){
           I = I+50;
           if(i%27==0) I = I+5;
           K=0;
@@ -64,12 +64,12 @@ function Load(width,height){
       }
 
       for (var i = 1; i < 10; i++){
-         Set[i] = new Numbers((i-1)*50,500,i,true);
+        Set[i] = new Numbers((i-1)*50,500,i,true);
       }
 
       if(V!=undefined){
         for (var i = 1; i < 82; i++){
-            Number[i].frame = V[i-1];
+          Number[i].frame = V[i-1];
         }
       }
 
@@ -104,12 +104,10 @@ function Load(width,height){
           }
         }
         if(Start.intersect(Hand)){
-          var V =  [5, 3, 0, 0, 7, 0, 0, 0, 0, 6, 0, 0, 1, 9, 5, 0, 0, 0, 0, 9, 8, 0, 0, 0, 0, 6, 0, 8, 0, 0, 0, 6, 0, 0, 0, 3, 4, 0, 0, 8, 0, 3, 0, 0, 1, 7, 0, 0, 0, 2, 0, 0, 0, 6, 0, 6, 0, 0, 0, 0, 2, 8, 0, 0, 0, 0, 4, 1, 9, 0, 0, 5, 0, 0, 0, 0, 8, 0, 0, 7, 9];
-          //*
+          var V = [];
           for (var i = 0; i < 81; i++){
             V[i] = Number[i+1].frame;
-          }//*///
-          //console.log(V);
+          }
           core.replaceScene(AnswerScene(V));
         }
       })
@@ -135,24 +133,32 @@ function Load(width,height){
       Main.y = 0;
       scene.addChild(Main);
       var Numbers = Class.create(Sprite, {
-          initialize: function(x,y,z) {
-              Sprite.call(this,45,45);
-              this.image = core.assets["image/Number.png"];
-              this.x = x;
-              this.y = y;
-              this.frame = z;
-              scene.addChild(this);
-          }
+        initialize: function(x,y,z) {
+          Sprite.call(this,45,45);
+          this.image = core.assets["image/Number.png"];
+          this.x = x;
+          this.y = y;
+          this.frame = z;
+          scene.addChild(this);
+        }
       });
+
+      var label = new Label();
+        label.x = 0;
+        label.y = 470;
+        label.color = 'red';
+        label.font = '40px "Arial"';
+        label.text = ("");
+        scene.addChild(label);
 
       var I = 0;
       var K = 0;
 
       for (var i = 1; i < 82; i++){
-         Number[i] = new Numbers(5+K,5+I,V[i-1]);
-         K = K+50;
-         if(i%3==0) K = K+5;
-         if(i%9==0){
+        Number[i] = new Numbers(5+K,5+I,V[i-1]);
+        K = K+50;
+        if(i%3==0) K = K+5;
+        if(i%9==0){
           I = I+50;
           if(i%27==0) I = I+5;
           K=0;
@@ -167,54 +173,28 @@ function Load(width,height){
         var f = 0;
         for (var d = 0; d < 9; d++){
           for (var i = 1+d*9; i < 10+d*9; i++){
-              if(V[i-1]==1){
+            for(var c = 1; c < 10; c++){
+              if(V[i-1]==c){
                 for (var k = 1+d*9; k < 10+d*9; k++){
-                  if((V[k-1]+"").length!=1) V[k-1] = "0" + V[k-1].substring(1,9);
+                  if((V[k-1]+"").length==9&&V[k-1]!="000000009") V[k-1] = V[k-1].substring(0,c-1) + "0" + V[k-1].substring(c);
                 }
               }
-              for(var c = 2; c < 9; c++){
-                if(V[i-1]==c){
-                  for (var k = 1+d*9; k < 10+d*9; k++){
-                    if((V[k-1]+"").length!=1) V[k-1] = V[k-1].substring(0,c-1) + "0" + V[k-1].substring(c);
-                  }
-                }
-              }
-              if(V[i-1]==9){
-                for (var k = 1+d*9; k < 10+d*9; k++){
-                  if((V[k-1]+"").length!=1){
-                    if(V[k-1]=="000000009");
-                    else V[k-1] = V[k-1].substring(0,8) + "0";
-                  }
-                }
-              }
+            }
           }
           for (var i = 1+d; i < 74+d; i = i+9){
-              if(V[i-1]==1){
+            for(var c = 1; c < 10; c++){
+              if(V[i-1]==c){
                 for (var k = 1+d; k < 74+d; k = k+9){
-                  if((V[k-1]+"").length!=1) V[k-1] = "0" + V[k-1].substring(1,9);
+                  if((V[k-1]+"").length==9&&V[k-1]!="000000009") V[k-1] = V[k-1].substring(0,c-1) + "0" + V[k-1].substring(c);
                 }
               }
-              for(var c = 2; c < 9; c++){
-                if(V[i-1]==c){
-                  for (var k = 1+d; k < 74+d; k = k+9){
-                    if((V[k-1]+"").length!=1) V[k-1] = V[k-1].substring(0,c-1) + "0" + V[k-1].substring(c);
-                  }
-                }
-              }
-              if(V[i-1]==9){
-                for (var k = 1+d; k < 74+d; k = k+9){
-                  if((V[k-1]+"").length!=1){
-                    if(V[k-1]=="000000009");
-                    else V[k-1] = V[k-1].substring(0,8) + "0";
-                  }
-                }
-              }
-          }
-            if(d==3||d==6){
-              e = e+27;
-              f = 0;
             }
-            for (var i = 1+e+f*3; i < 22+e+f*3; i++){
+          }
+          if(d==3||d==6){
+            e = e+27;
+            f = 0;
+          }
+          for (var i = 1+e+f*3; i < 22+e+f*3; i++){
             if(i==4+e+f*3||i==13+e+f*3){
               i = i+5;
               continue;
@@ -226,13 +206,87 @@ function Load(width,height){
                     k = k+5;
                     continue;
                   }
-                  if((V[k-1]+"").length!=1&&V[k-1]!="000000009") V[k-1] = V[k-1].substring(0,c-1) + "0" + V[k-1].substring(c);
+                  if((V[k-1]+"").length==9&&V[k-1]!="000000009") V[k-1] = V[k-1].substring(0,c-1) + "0" + V[k-1].substring(c);
                 }
               }
             }
           }
           f++;
         }
+        var e = 0;
+        var f = 0;
+        for (var d = 0; d < 9; d++){
+          if(d==3||d==6){
+            e = e+27;
+            f = 0;
+          }
+          for (var i = 1+e+f*3; i < 22+e+f*3; i++){
+            if(i==4+e+f*3||i==13+e+f*3){
+              i = i+5;
+              continue;
+            }
+            var N = [0,0,0,0,0,0,0,0,0];
+            var S = [0,0,0,0,0,0,0,0,0];
+            for (var k = (1+e)+f*3; k < (22+e)+f*3; k++){
+              if(k==4+e+f*3||k==13+e+f*3){
+                k = k+5;
+                continue;
+              }
+              if(V[k-1].length==9){
+                for (var c = 0; c < 9; c++){
+                  if(V[k-1].substring(c,c+1)==c+1){
+                    N[c]++;
+                    S[c] = k-1;
+                  }
+                }
+              }
+            }
+          }
+          for (var c = 0; c < 9; c++){
+            if(N[c] == 1) V[S[c]] = c+1;
+          }
+          f++;
+        }
+        /*
+        for (var d = 0; d < 9; d++){
+          for (var i = 1+d*9; i < 10+d*9; i++){
+            var N = [0,0,0,0,0,0,0,0,0];
+            var S = [0,0,0,0,0,0,0,0,0];
+            for (var k = 1+d*9; k < 10+d*9; k++){
+              if(V[k-1].length==9){
+                for (var c = 0; c < 9; c++){
+                  if(V[k-1].substring(c,c+1)==c+1){
+                    N[c]++;
+                    S[c] = k-1;
+                  }
+                }
+              }
+            }
+          }
+          for (var c = 0; c < 9; c++){
+            if(N[c] == 1) V[S[c]] = c+1;
+          }
+        }
+        for (var d = 0; d < 9; d++){
+          for (var i = 1+d; i < 74+d; i = i+9){
+            var N = [0,0,0,0,0,0,0,0,0];
+            var S = [0,0,0,0,0,0,0,0,0];
+            for (var k = 1+d; k < 74+d; k = k+9){
+              if(V[k-1].length==9){
+                for (var c = 0; c < 9; c++){
+                  if(V[k-1].substring(c,c+1)==c+1){
+                    N[c]++;
+                    S[c] = k-1;
+                  }
+                }
+              }
+            }
+          }
+          for (var c = 0; c < 9; c++){
+            if(N[c] == 1) V[S[c]] = c+1;
+          }
+        }
+        */
         for (var i = 1; i < 82; i++){
           if(V[i-1]=="100000000") V[i-1] = 1;
           if(V[i-1]=="020000000") V[i-1] = 2;
@@ -245,7 +299,7 @@ function Load(width,height){
           if(V[i-1]=="000000009") V[i-1] = 9;
           Number[i].a = V[i-1];
           for (var k = 1; k < 10; k++){
-              if(V[i-1]==k) Number[i].frame = k;
+            if(V[i-1]==k) Number[i].frame = k;
           }
         }
       })
@@ -255,7 +309,7 @@ function Load(width,height){
         Hand.y = e.y;
         for (var i = 1; i < 82; i++){
           if(Number[i].intersect(Hand)){
-            console.log(Number[i].a);
+            label.text = Number[i].a;
           }
         }
         if(Start.intersect(Hand)){
